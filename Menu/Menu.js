@@ -52,3 +52,14 @@ function createMenu(arr) {
 let newContainer = document.querySelector('.header');
 //console.log(createMenu(menuItems));
 newContainer.appendChild(createMenu(menuItems));
+
+$(document).ready(function() { 
+  $(".menu-button").click(function() { 
+      $(".menu").animate({ 
+          width: "200px" 
+      }); 
+      $(".menu").animate({ 
+          height: "700px" 
+      }); 
+  }); 
+}); 
