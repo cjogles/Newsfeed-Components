@@ -85,11 +85,23 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Jacksons Stuff',
+    date: 'Today',
+    firstParagraph: `WUZ UUUUUUUPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP`,
+
+    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
-
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
-  
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
@@ -98,17 +110,53 @@ const data = [
 
     <span class='expandButton'></span>
   </div>
-
   Hint: You will need to use createElement more than once here!
-
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
-
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-
   Step 3: return the entire component.
-
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
+  Step 4: Map over the data, creating a component for each object and add each component to the DOM as children of the 'articles' div.
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-
 */
+
+// create a factory function (aka componenent) that creates articles:
+function createArticle(title, date, p1, p2, p3) {
+  //create elements for each article
+  let newArticle = document.createElement('div');
+  let newTitle = document.createElement('h2');
+  let newDate = document.createElement('p');
+  let newP1 = document.createElement('p');
+  let newP2 = document.createElement('p');
+  let newP3 = document.createElement('p');
+  let newSpan = document.createElement('span');
+  //structure articles
+  newArticle.appendChild(newTitle);
+  newArticle.appendChild(newDate);
+  newArticle.appendChild(newP1);
+  newArticle.appendChild(newP2);
+  newArticle.appendChild(newP3);
+  newArticle.appendChild(newSpan);
+  //connect style functionality
+  newArticle.classList.add('article');
+  newDate.classList.add('date');
+  newSpan.classList.add('expandButton');
+  //populate content
+  newTitle.textContent = title;
+  newDate.textContent = date;
+  newP1.textContent = p1;
+  newP2.textContent = p2;
+  newP3.textContent = p3;
+  newSpan.textContent = '\u21d5';
+  //event listeners
+  newSpan.addEventListener('click', () => {
+    newArticle.classList.toggle('article-open');
+  });
+  return newArticle;
+}
+
+// declare and initialize container variable
+let container = document.querySelector('.articles');
+
+// append articles to container
+data.map(info => {
+  container.appendChild(createArticle(info.title, info.date, info.firstParagraph, info.secondParagraph, info.thirdParagraph));
+});
